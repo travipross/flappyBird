@@ -15,7 +15,7 @@ function setup(){
  	b = createButton('Turn on Mic');
  	b.position(10,10);
  	b.mousePressed(toggleSound);
-	createCanvas(400,600)
+	createCanvas(600,600)
 	bird = new Bird();
 	pipe = new Pipe();
 	

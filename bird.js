@@ -12,7 +12,7 @@ var soundMode = true;
 var b;
 
 function setup(){
- 	b = createButton('Turn on Mic');
+ 	b = createButton('Turn off Mic');
  	b.position(10,10);
  	b.mousePressed(toggleSound);
 	createCanvas(600,600)

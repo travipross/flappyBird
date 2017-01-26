@@ -178,7 +178,7 @@ function Pipe(){
 function touchStarted(){
 	bird.flap();
 	if(!soundMode){
-		return false;
+		//return false;
 	}
 }
 

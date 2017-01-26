@@ -8,7 +8,7 @@ var lowerLim;
 var sliderTop;
 var sliderBottom;
 var soundFlap = false;
-var soundMode = false;
+var soundMode = true;
 var b;
 
 function setup(){

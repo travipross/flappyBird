@@ -12,6 +12,7 @@ var soundMode = true;
 var b;
 
 function setup(){
+	// test comment
  	b = createButton('Turn off Mic');
  	b.position(10,10);
  	b.mousePressed(toggleSound);

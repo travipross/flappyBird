@@ -3,6 +3,7 @@ var pipes = [];
 var score = 0;
 var highScore = 0;
 var mic;
+var fft;
 var upperLim;
 var lowerLim;
 var sliderTop;
@@ -24,6 +25,8 @@ function setup(){
 	mic = new p5.AudioIn();
 	if(soundMode){
 		mic.start();
+		fft = new p5.FFT();
+		fft.setInput(mic);
 		sliderTop = createSlider(0,1,0.12,0.01);
 		sliderBottom = createSlider(0,1,0.07,0.01);
 	}
@@ -62,6 +65,15 @@ function draw(){
 		if(vol < thresholdBottom){
 			soundFlap = false;
 		}
+		
+		var spectrum = fft.analyze();
+		beginShape();
+		noFill();
+		for (var i = 0; i<spectrum.length; i++){
+			vertex(i,map(spectrum[i],0,255,height,0));
+		}
+		endShape();
+		
 	}
 	
 	bird.update();

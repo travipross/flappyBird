@@ -12,22 +12,21 @@ var soundMode = true;
 var b;
 
 function setup(){
-	// test comment
- 	b = createButton('Turn off Mic');
+ 	b = createButton('Turn off Mic'); // allow mic to be used
  	b.position(10,10);
  	b.mousePressed(toggleSound);
 	createCanvas(400,600);
-	bird = new Bird();
-	pipe = new Pipe();
+	bird = new Bird(); // create a bird
 	
-	pipes.push(new Pipe());
+	pipes.push(new Pipe()); 
 	mic = new p5.AudioIn();
+	
+	// create sliders to adjust microphone sensitivity
 	if(soundMode){
 		mic.start();
 		sliderTop = createSlider(0,1,0.12,0.01);
 		sliderBottom = createSlider(0,1,0.07,0.01);
 	}
-	
 }
 
 function draw(){
@@ -66,24 +65,33 @@ function draw(){
 	
 	bird.update();
 	bird.show();
+	
+	// create new pipe every 200 frames
 	if(frameCount % 200 == 0){
 		pipes.push(new Pipe());
 	}
 	
+	// for every pipe in the list, check position and draw
 	for (var i = pipes.length-1; i >= 0; i--){
 		pipes[i].update(bird);
 		pipes[i].show();
+		
+		// remove from list if moved offscreen
 		if(pipes[i].offscreen()){
 			pipes.splice(i,1);
 		}
+		
+		// colour red if intersecting with bird
 		if(pipes[i].hits(bird)){
 			pipes[i].highlight = true;
-			pipes[i].passed = true;
+			pipes[i].passed = true;  // increment score if behind bird
 			score = 0;
 		}else{
 			pipes[i].highlight = false;
 		}
 	}
+	
+	// Draw text on top right for displaying scores
 	fill(255)
 	stroke(0);
 	textSize(30);
@@ -93,6 +101,7 @@ function draw(){
 	text("Best: " + highScore, width-30,100);
 }
 
+// flap wings when clicked
 function touchStarted(){
 	bird.flap();
 	if(!soundMode){
@@ -100,6 +109,7 @@ function touchStarted(){
 	}
 }
 
+// toggle sound mode (this function is attached to button)
 function toggleSound(){
 	soundMode = !soundMode;
 	if(soundMode){
